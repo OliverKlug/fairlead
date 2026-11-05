@@ -1901,8 +1901,8 @@ forbid (principal, action, resource);
     }
 
     #[test]
-    fn enterprise_claude_strict_sample_applies_profile_and_installer_never_writes_it() {
-        let dir = std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../../enterprise");
+    fn managed_claude_strict_sample_applies_profile_and_installer_never_writes_it() {
+        let dir = std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../../managed");
         let load = |n: &str| serde_json::from_str::<serde_json::Value>(&std::fs::read_to_string(dir.join(n)).expect("file")).expect("json");
         let (base, strict) = (load("claude-managed-settings.json"), load("claude-managed-strict.json"));
         let has = |s: &[ClaudeScope]| claude_hook_findings(s).notes.iter().any(|n| n.contains("strict permission profile is applied"));
@@ -2036,9 +2036,9 @@ forbid (principal, action, resource);
     }
 
     #[test]
-    fn enterprise_claude_managed_settings_pass_doctor_and_pin_nothing_false() {
+    fn managed_claude_managed_settings_pass_doctor_and_pin_nothing_false() {
         let raw = std::fs::read_to_string(
-            std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../../enterprise/claude-managed-settings.json"),
+            std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../../managed/claude-managed-settings.json"),
         )
         .expect("snippet");
         let v: serde_json::Value = serde_json::from_str(&raw).expect("json");

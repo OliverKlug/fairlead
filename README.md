@@ -1,4 +1,10 @@
-# Fairlead
+<p align="center">
+  <img src="docs/assets/fairlead-logo.png" alt="Fairlead logo: an orange knot tied in a rope" width="220">
+</p>
+
+<h1 align="center">Fairlead</h1>
+
+<p align="center"><strong>Open-source policy gate for AI coding agents</strong></p>
 
 AI coding agents such as Cursor and Claude Code can run commands, edit files and call tools on your computer on their own. That is what makes them useful, and it is also the risk: a hidden instruction in a ticket, a web page or a tool result can talk an agent into running something you never asked for, like planting a file that Git runs on your next commit or sending a secret to a server. Fairlead is an open-source policy gate for AI coding agents. It sits between the agent and your machine, checks every command, file operation and tool call against a plain-text rule file before it runs, and blocks what the rules forbid. The decision comes from the rules you can read, not from a second AI model, so the same input gets the same answer every time.
 
@@ -49,7 +55,7 @@ flowchart LR
 | `fairlead-cli` | Rust | The `fairlead` binary: `doctor`, `arm`, `hook`, `install-hooks`, `verify-receipt`, `stats`, `mcp-proxy` | `crates/fairlead-cli` |
 | Policy pack | Cedar | `baseline.cedar`, `coding-agent.cedarschema`, doctor fixtures | `pack/` |
 | Attack suite | Shell, `cargo test` | Named attack cases and the live doctor check | `tests/attack_suite` |
-| Managed-seat samples | JSON, shell, SQL | Claude Code managed settings, osquery pin check, install checks | `enterprise/` |
+| Managed-seat samples | JSON, shell, SQL | Claude Code managed settings, osquery pin check, install checks | `managed/` |
 | Poisoned-MCP demo | Python, shell | A fake MCP server whose issue text tells the agent to plant a Git hook | `demos/poisoned-mcp` |
 
 ### Cedar
@@ -242,7 +248,7 @@ For Claude Code the generated `.claude/settings.json` uses the exec form, so no 
 
 ### Managed seats
 
-Samples for an administrator who wants the hooks and the pin outside the user's control live in [enterprise/README.md](enterprise/README.md): a Claude Code managed settings file, a stricter opt-in permission profile, an osquery policy that flags a drifted pin, and install checks. On a managed seat `doctor` and `arm` refuse instead of warn. The managed-seat path on Claude Code is documented but has not been tested live.
+Samples for an administrator who wants the hooks and the pin outside the user's control live in [managed/README.md](managed/README.md): a Claude Code managed settings file, a stricter opt-in permission profile, an osquery policy that flags a drifted pin, and install checks. On a managed seat `doctor` and `arm` refuse instead of warn. The managed-seat path on Claude Code is documented but has not been tested live.
 
 ## Frequently asked questions
 
@@ -299,7 +305,7 @@ The maintainer does not accept external pull requests. Integration requests and 
 | What Fairlead does not cover | [docs/residual-risk.md](docs/residual-risk.md) |
 | Policy pack, context record and heuristic ceilings | [pack/policies/README.md](pack/policies/README.md) |
 | Attack suite and the case map | [tests/attack_suite/README.md](tests/attack_suite/README.md) |
-| Managed seats, fleet pin check, install checks | [enterprise/README.md](enterprise/README.md) |
+| Managed seats, fleet pin check, install checks | [managed/README.md](managed/README.md) |
 | Poisoned-MCP demo | [demos/poisoned-mcp/README.md](demos/poisoned-mcp/README.md) |
 | Third-party licenses | [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) |
 

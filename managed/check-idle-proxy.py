@@ -5,7 +5,7 @@
 schedule while the pinned files are edited, deleted and restored. Proves the predicate under a real
 scheduler, NOT Fleet: no policy interval, no policy_membership, no webhooks, no asleep-host state.
 
-    OSQUERYD=/path/to/osqueryd python3 enterprise/check-idle-proxy.py
+    OSQUERYD=/path/to/osqueryd python3 managed/check-idle-proxy.py
 
 Needs a running Cursor/cursor-agent/claude process for the IDE-running phases (it says so and exits
 otherwise). Snapshot mode is deliberate: differential mode logs nothing for a stable zero-row FAIL.

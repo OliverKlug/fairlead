@@ -1,7 +1,7 @@
 #!/bin/sh
 # SPDX-FileCopyrightText: Copyright (c) 2026 Oliver Klug
 # SPDX-License-Identifier: Apache-2.0
-# Pre-ship check for the enterprise bundle. Builds a real install layout in a temp dir (binary
+# Pre-ship check for the managed-seat bundle. Builds a real install layout in a temp dir (binary
 # and pack away from the build tree, a space in the managed hooks path), stages and rewrites the
 # hooks the way README.md says, arms with FAIRLEAD_HOOKS, then runs the hook the way Cursor execs
 # it (argv split on spaces, no shell, no inherited FAIRLEAD_* env). Optional real-osquery pass:
@@ -25,7 +25,7 @@ mkdir -p "$inst" "$pack/policies" "$pack/tests/doctor" "$(dirname "$hooks")"
 cp "$bin" "$inst/fairlead"
 cp "$docs/policies/baseline.cedar" "$docs/policies/coding-agent.cedarschema" "$pack/policies/"
 cp "$docs/tests/doctor/cases.json" "$pack/tests/doctor/"
-echo "// enterprise-check: pack hash must differ from the build-tree pack" >> "$pack/policies/baseline.cedar"
+echo "// managed-check: pack hash must differ from the build-tree pack" >> "$pack/policies/baseline.cedar"
 
 wrap=$inst/fairlead-hook
 sed -e "s|^export FAIRLEAD_ROOT=.*|export FAIRLEAD_ROOT=$pack|" \

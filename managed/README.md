@@ -1,4 +1,4 @@
-# Enterprise bundle (Goal 11, F-BYP-06/07/08)
+# Managed-seat bundle (Goal 11, F-BYP-06/07/08)
 
 Files only. Fairlead does not implement MDM, a heartbeat daemon, or a dashboard. The customer's
 MDM drops these files and the customer's osquery / Fleet / Kolide runs the query. If they never

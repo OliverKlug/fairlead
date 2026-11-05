@@ -104,7 +104,7 @@ EOF
       cp "$docs/policies/baseline.cedar" "$docs/policies/coding-agent.cedarschema" "$b/pack/policies/"
       cp "$docs/tests/doctor/cases.json" "$b/pack/tests/doctor/"
       echo "// cursor-probe: pack hash differs from the repo pack" >> "$b/pack/policies/baseline.cedar"
-      # Probe wrapper: same env contract as enterprise/fairlead-hook, plus temp receipts and a body filter so
+      # Probe wrapper: same env contract as managed/fairlead-hook, plus temp receipts and a body filter so
       # every other command in every other Cursor window passes straight through while this is installed.
       cat > "$b/lib/fairlead-hook" <<EOF
 #!/bin/sh

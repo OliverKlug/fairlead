@@ -834,7 +834,7 @@ pub fn claude_hook_findings(scopes: &[ClaudeScope]) -> SandboxFindings {
     f.notes.push(if strict {
         "claude: strict permission profile is applied in managed settings".into()
     } else {
-        "claude: strict permission profile not applied (optional enterprise/claude-managed-strict.json); a hook that never loads is covered only by permission rules and the OS sandbox".into()
+        "claude: strict permission profile not applied (optional managed/claude-managed-strict.json); a hook that never loads is covered only by permission rules and the OS sandbox".into()
     });
     f
 }
