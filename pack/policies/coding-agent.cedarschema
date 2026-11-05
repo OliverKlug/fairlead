@@ -1,0 +1,44 @@
+// Fairlead coding-agent schema. Adapter MUST fill every required context field
+// before Authorizer::is_authorized. Missing attrs → Cedar skips the policy (not deny).
+// Validate requests against this schema at load + at each decision.
+
+namespace Fairlead {
+  entity Agent;
+  entity Resource;
+
+  type SessionFacts = {
+    touched_secrets: Bool,
+    saw_untrusted_web: Bool,
+    saw_mcp_untrusted: Bool,
+    subagent_active: Bool,
+    secret_read_count: Long,
+  };
+
+  type DecisionContext = {
+    command: String,
+    cwd: String,
+    sandbox: Bool,
+    argv0: String,
+    argv0_is_boring: Bool,
+    command_looks_like_network: Bool,
+    path_is_sensitive: Bool,
+    mcp_is_write: Bool,
+    tool_name: String,
+    provenance: Set<String>,
+    granted_caps: Set<String>,
+    parent_caps: Set<String>,
+    session: SessionFacts,
+    // Optional on purpose (Goal 10): only the Cursor adapter fills it, from the quarantine
+    // handle store. Policies must guard with `context has argument_from_untrusted`.
+    argument_from_untrusted?: Bool,
+    // Optional: adapter sets it for python/node, including `-m`, and for argv0 pytest.
+    // Policies must guard with `context has interpreter_exec`. Omitted is not a deny.
+    interpreter_exec?: Bool,
+  };
+
+  action Shell, McpCall, FileRead, FileWrite, Fetch, SubagentStart appliesTo {
+    principal: Agent,
+    resource: Resource,
+    context: DecisionContext,
+  };
+}

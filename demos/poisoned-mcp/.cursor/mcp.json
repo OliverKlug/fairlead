@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "poisoned-issues": {
+      "type": "stdio",
+      "command": "PYTHON3",
+      "args": ["MCP_SERVER"],
+      "env": {
+        "PYTHONUNBUFFERED": "1",
+        "CANARY_PORT": "CANARY_PORT"
+      }
+    }
+  }
+}

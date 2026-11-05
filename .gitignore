@@ -1,0 +1,12 @@
+/target
+/tests/tmp
+/receipts.jsonl
+/observe.jsonl
+/latency_p95.json
+# Local signing key and pin written by `fairlead arm`. Never commit.
+/pack/ed25519.seed
+/pack/last-armed.json
+/pack/last-armed.json.tmp
+__pycache__/
+.DS_Store
+.env

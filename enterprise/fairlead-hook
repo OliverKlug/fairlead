@@ -1,0 +1,13 @@
+#!/bin/sh
+# SPDX-FileCopyrightText: Copyright (c) 2026 Oliver Klug
+# SPDX-License-Identifier: Apache-2.0
+# Managed hook entry. Cursor 3.6.21 on macOS ran `command` through a shell (live probe 2026-10-08) but
+# documents none, so an inline `VAR=x binary ...` prefix is not safe to ship. The environment lives here instead, and the
+# hooks.json command is this space-free path plus the event, e.g.
+#   /usr/local/lib/fairlead/fairlead-hook cursor shell
+# Edit the three paths for your install (Linux hooks: /etc/cursor/hooks.json). This file is
+# pinned by fleet-pin-policy.sql: whoever edits it changes which pack and binary decide.
+unset FAIRLEAD_MANAGED_DIR
+export FAIRLEAD_ROOT=/usr/local/share/fairlead
+export FAIRLEAD_HOOKS="/Library/Application Support/Cursor/hooks.json"
+exec /usr/local/lib/fairlead/fairlead hook "$@"

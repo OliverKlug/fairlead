@@ -1,0 +1,22 @@
+{
+  "allowManagedHooksOnly": true,
+  "sandbox": { "enabled": true, "allowUnsandboxedCommands": false, "failIfUnavailable": true },
+  "env": {
+    "FAIRLEAD_ROOT": "/usr/local/share/fairlead",
+    "FAIRLEAD_HOOKS": "/Library/Application Support/Cursor/hooks.json"
+  },
+  "hooks": {
+    "PreToolUse": [
+      { "matcher": "*", "hooks": [{ "type": "command", "command": "/usr/local/lib/fairlead/fairlead", "args": ["hook", "claude", "pretool"], "timeout": 10, "onFailure": "block" }] }
+    ],
+    "PermissionRequest": [
+      { "matcher": "*", "hooks": [{ "type": "command", "command": "/usr/local/lib/fairlead/fairlead", "args": ["hook", "claude", "permission-request"], "timeout": 10, "onFailure": "block" }] }
+    ],
+    "SubagentStop": [
+      { "matcher": "*", "hooks": [{ "type": "command", "command": "/usr/local/lib/fairlead/fairlead", "args": ["hook", "claude", "subagent-stop"], "timeout": 10, "onFailure": "block" }] }
+    ],
+    "SubagentStart": [
+      { "matcher": "*", "hooks": [{ "type": "command", "command": "/usr/local/lib/fairlead/fairlead", "args": ["hook", "claude", "subagent-start"], "timeout": 10, "onFailure": "block" }] }
+    ]
+  }
+}

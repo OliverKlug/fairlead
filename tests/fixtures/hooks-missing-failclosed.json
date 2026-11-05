@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "hooks": {
+    "beforeShellExecution": [
+      { "command": "fairlead hook cursor shell", "timeout": 10 }
+    ],
+    "beforeMCPExecution": [
+      { "command": "fairlead hook cursor mcp", "timeout": 10, "failClosed": true }
+    ],
+    "beforeReadFile": [
+      { "command": "fairlead hook cursor read", "timeout": 5, "failClosed": true }
+    ]
+  }
+}

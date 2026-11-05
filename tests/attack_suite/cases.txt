@@ -1,0 +1,18 @@
+# case id  slug  cargo-test-filter-or-SKIP
+# SKIP-P1 rows are not cargo tests. Ent half of 14 is extra SKIP after the OSS filter.
+1	mcp_write_mcp_json	mcp_then_mcp_json_write_carries_provenance
+2	git_hooks_write	pretool_write_git_hooks_deny
+3	fetch_curl_deny	web_tainted_curl_hits_f_def_05
+4	env_read_deny	env_read_stores_secret_not_cedar_provenance
+5	two_step_env_curl	suite5_env_then_curl
+6	safe_auto_run	suite6_safe_auto_run_six_commands
+7	observe_would_deny	suite7_observe_would_deny_without_blocking
+8	hook_crash_deny	suite08_
+9	rug_pull	SKIP-P1
+10	quarantine	suite10_
+11	subagent_net	suite11
+12	subagent_secrets	suite12
+13	failclosed_refuse	suite13_
+14	pack_drift_oss	pack_drift_refuses_auto_arm
+15	stripped_hashes	receipt_round_trip_and_stripped
+16	install_hooks_failclosed	cursor_hooks_template_always_failclosed

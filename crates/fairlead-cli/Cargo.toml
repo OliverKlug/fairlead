@@ -1,0 +1,17 @@
+[package]
+name = "fairlead-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[[bin]]
+name = "fairlead"
+path = "src/main.rs"
+
+[dependencies]
+fairlead-core = { path = "../fairlead-core" }
+serde_json.workspace = true
+
+[lints]
+workspace = true

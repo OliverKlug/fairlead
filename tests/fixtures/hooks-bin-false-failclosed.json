@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "hooks": {
+    "beforeShellExecution": [
+      { "command": "/bin/false", "timeout": 10, "failClosed": true }
+    ],
+    "beforeMCPExecution": [
+      { "command": "/bin/false", "timeout": 10, "failClosed": true }
+    ],
+    "beforeReadFile": [
+      { "command": "/bin/false", "timeout": 5, "failClosed": true }
+    ],
+    "preToolUse": [
+      { "command": "/bin/false", "matcher": "Write", "timeout": 5, "failClosed": true },
+      { "command": "/bin/false", "matcher": "Grep", "timeout": 5, "failClosed": true },
+      { "command": "/bin/false", "matcher": "Read", "timeout": 5, "failClosed": true },
+      { "command": "/bin/false", "matcher": "Glob", "timeout": 5, "failClosed": true }
+    ]
+  }
+}

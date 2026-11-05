@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "defaultMode": "dontAsk",
+    "disableBypassPermissionsMode": "disable",
+    "disableAutoMode": "disable",
+    "allow": ["Read", "Bash(pytest *)"]
+  },
+  "allowManagedPermissionRulesOnly": true
+}
