@@ -5,6 +5,7 @@
 <h1 align="center">Fairlead</h1>
 
 <p align="center"><strong>Open-source policy gate for AI coding agents</strong></p>
+
 AI coding agents such as Cursor and Claude Code can run commands, edit files and call tools on your computer on their own. That is what makes them useful, and it is also the risk: a hidden instruction in a ticket, a web page or a tool result can talk an agent into running something you never asked for, like planting a file that Git runs on your next commit or sending a secret to a server. Fairlead is an open-source policy gate for AI coding agents. It sits between the agent and your machine, checks every command, file operation and tool call against a plain-text rule file before it runs, and blocks what the rules forbid. The decision comes from the rules you can read, not from a second AI model, so the same input gets the same answer every time.
 
 The agent can still read the bad text. Fairlead stops the action that follows it.
